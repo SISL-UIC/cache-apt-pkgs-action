@@ -10,6 +10,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "check:latest-action-pin": "node ./dev_scripts/check_latest_action_pin.mjs",
+    "check:latest-action-pins": "node ./dev_scripts/check_latest_action_pin.mjs --scan",
     "clean": "rm -rf dist coverage",
     "lint": "eslint src test --ext .ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -23,7 +25,7 @@
     "@actions/cache": "^6.1.0",
     "@actions/core": "^1.11.1",
     "tar": "^7.4.3",
-    "ts-apt": "^0.1.0",
+    "ts-apt": "file:../ts-apt",
     "winston": "^3.19.0"
   },
   "devDependencies": {

@@ -15,9 +15,9 @@ function is_local_switched() {
 function switch() {
   if ! is_local_switched; then
     echo "Switching ts-apt dependency to local path '${LOCAL_VAL}'..."
-    if [[ ! -d "${SCRIPT_DIR}/../ts-apt" ]]; then
+    if [[ ! -d "${SCRIPT_DIR}/../../ts-apt" ]]; then
       echo "Local ts-apt path '${LOCAL_VAL}' does not exist. Checking out..."
-      clone_repo "ts-apt" "${SCRIPT_DIR}/../ts-apt"
+      clone_repo "ts-apt" "${SCRIPT_DIR}/../../ts-apt"
     fi
     sed -i "s#\"ts-apt\": \".*\",#\"ts-apt\": \"${LOCAL_VAL}\",#" "${PACKAGE_PATH}"
     echo "Switched to local ts-apt. Run 'npm install --ignore-scripts' to refresh node_modules and package-lock.json."

@@ -17,6 +17,8 @@ on:
 env:
   DEBUG: ${{ github.event.inputs.debug || false }}
 permissions:
+  actions: read
+  contents: read
   security-events: write
 
 jobs:
@@ -33,36 +35,12 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup-env
 
-      - name: Initialize CodeQL
-        uses: "github/codeql-action/init@1a818fd5f97ed0ee9a823421bd5b171add01227f" # v4.36.2
-        with:
-          languages: javascript-typescript
-          queries: security-extended,security-and-quality
-
       - name: Check code health
         uses: ./.github/actions/codehealth
         with:
-          run_tests: "false" # Run full testing with coverage below
-
-      - name: Run tests with coverage
-        shell: bash
-        run: npm run test:coverage
-
-      - name: Upload coverage info
-        uses: "codecov/codecov-action@e53489f4d376d79066609109e7a95a29eb3740b1" # v7.0.0
-        with:
-          files: ./coverage/lcov.info
-          fail_ci_if_error: true
-
-      - name: Annotate coverage on changed files
-        uses: "jgillick/test-coverage-annotations@74fb1a9d4dbe8048001f4334c60095f65060c62a" # v1.0.3
-        with:
-          access-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage: ./coverage/coverage-final.json
-          only-changed-files: true
-
-      - name: Analyze with CodeQL
-        uses: "github/codeql-action/analyze@1a818fd5f97ed0ee9a823421bd5b171add01227f" # v4.36.2
+          run_tests: "false"
+          run_coverage: "true"
+          run_codeql: "true"
 
   # All other jobs should depend on build_binaries (if run) or check_distribute (if not needed)
   list_all_versions:
