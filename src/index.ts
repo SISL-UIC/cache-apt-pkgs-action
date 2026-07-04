@@ -2,6 +2,16 @@ import * as core from "@actions/core";
 import { parseBoolean, runAction, type ActionInputs } from "./action.js";
 import winston from "winston";
 
+/**
+ * Parses empty package behavior input from workflow configuration.
+ *
+ * @param value Raw behavior input.
+ * @returns Parsed behavior enum value.
+ * @throws Error when value is outside the supported set.
+ *
+ * @example
+ * const behavior = parseEmptyPackagesBehavior("warn");
+ */
 function parseEmptyPackagesBehavior(
   value: string,
 ): "error" | "warn" | "ignore" {
@@ -14,6 +24,14 @@ function parseEmptyPackagesBehavior(
   );
 }
 
+/**
+ * Reads and validates typed action inputs from GitHub Actions runtime.
+ *
+ * @returns Parsed and validated action inputs.
+ *
+ * @example
+ * const inputs: ActionInputs = getInputs();
+ */
 function getInputs(): ActionInputs {
   const executeInstallScriptsRaw = core.getInput("execute_install_scripts");
   const debugRaw = core.getInput("debug");
@@ -32,6 +50,14 @@ function getInputs(): ActionInputs {
   };
 }
 
+/**
+ * Main action entrypoint. Sets outputs on success and fails the action on error.
+ *
+ * @returns Nothing.
+ *
+ * @example
+ * await main();
+ */
 async function main(): Promise<void> {
   try {
     const inputs = getInputs();
