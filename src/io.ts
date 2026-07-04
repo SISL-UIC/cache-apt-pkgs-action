@@ -60,7 +60,7 @@ export class CacheKey {
   ) {}
 
   serialize(): string {
-    return `${this.version}|${this.forceUpdateIncrement}|${this.arch}|${this.normalizedPackages.join(",")}`;
+    return `${this.version} | ${this.forceUpdateIncrement} | ${this.arch} | ${this.normalizedPackages.join(",")}`;
   }
 }
 

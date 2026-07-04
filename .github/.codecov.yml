@@ -1,0 +1,35 @@
+codecov:
+  require_ci_to_pass: true
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false # Set to true to only comment if coverage changes
+  require_base: false # Set to true to require a base commit to compare
+  require_head: true # Set to true to require a head commit
+  hide_project_coverage: false # Set to true to hide project-wide coverage
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto # Target coverage is the previous commit's coverage
+        threshold: 1% # Allow a 1% drop without failing
+        base: auto
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: error
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+        base: auto
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: error
+
+ignore:
+  - "dist/**"
+  - "test/**"
+  - "**/*.test.ts"
+  - "**/*.spec.ts"
