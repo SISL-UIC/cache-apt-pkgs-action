@@ -122,6 +122,13 @@ runs:
         path: ~/cache-apt-pkgs
         key: ${{ steps.load-cache.outputs.cache-primary-key }}
 
+    - id: verify-install
+      if: ${{ inputs.packages != '' }}
+      run: bash ${GITHUB_ACTION_PATH}/post-install/verify.sh
+      shell: bash
+      env:
+        PACKAGES: "${{ inputs.packages }}"
+
     - id: clean-cache
       run: |
         rm -rf ~/cache-apt-pkgs
